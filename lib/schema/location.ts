@@ -1,4 +1,4 @@
-export type Location = {
+export type LocationSchema = {
   id: number
   name: string
   type: string

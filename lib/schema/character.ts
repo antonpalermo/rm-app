@@ -1,14 +1,14 @@
-import { Location } from './location'
+import { LocationSchema } from './location'
 
-export type Character = {
+export type CharacterSchema = {
   id: number
   name: string
   status: string
   species: string
   type: string
   gender: string
-  origin: Partial<Location>
-  location: Partial<Location>
+  origin: Partial<LocationSchema>
+  location: Partial<LocationSchema>
   image: string
   episodes: string[]
   url: string

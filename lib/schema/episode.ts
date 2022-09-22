@@ -1,4 +1,4 @@
-export type Episode = {
+export type EpisodeSchema = {
   id: number
   name: string
   air_date: string
