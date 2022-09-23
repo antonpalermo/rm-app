@@ -2,16 +2,17 @@ import Image from 'next/image'
 import { CharacterSchema } from '../lib/schema/character'
 
 export type CharacterProps = {
-  character: CharacterSchema
+  info: CharacterSchema
 }
 
-export default function Character({ character }: CharacterProps) {
+export default function Character({ info }: CharacterProps) {
   return (
-    <div>
-      <h1 className="font-medium">{character.name}</h1>
+    <div className="p-5 bg-gray-50">
+      <h1 className="font-medium">{info.name}</h1>
+      <p>Current Status: {info.status}</p>
       <Image
-        src={character.image}
-        alt={`Photograph of ${character.name}`}
+        src={info.image}
+        alt={`Photograph of ${info.name}`}
         width={100}
         height={100}
       />

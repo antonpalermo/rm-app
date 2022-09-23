@@ -1,8 +1,10 @@
-export async function fetchCharacters() {
-  const response = await fetch('https://rickandmortyapi.com/api/character')
+export async function fetchCharacters({
+  pageParam = 'https://rickandmortyapi.com/api/character'
+}: any) {
+  const response = await fetch(`${pageParam}`)
 
   if (!response.ok) {
-    throw new Error("Oh no! we're failed to fetch all characters!")
+    throw new Error("Oh no! there's a problem fetching all characters!")
   }
 
   return await response.json()
