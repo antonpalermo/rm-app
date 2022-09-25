@@ -36,8 +36,11 @@ export default function Characters() {
 
   return (
     <div>
-      <h1>Characters</h1>
-      <div className="grid grid-cols-2 grid-flow-row gap-3">
+      <h1 className="text-4xl font-bold text-gray-800">Characters</h1>
+      <p className="font-medium text-gray-500">
+        All know characters through out the series
+      </p>
+      <div className="mt-10 grid sm:grid-cols-2 grid-cols-1 grid-flow-row gap-5">
         {isSuccess &&
           data?.pages.map(pages =>
             pages.results.map(characterInfo => (
@@ -45,7 +48,16 @@ export default function Characters() {
             ))
           )}
       </div>
-      <div ref={ref}>Div</div>
+      {isSuccess && (
+        <div
+          ref={ref}
+          className={`my-10 w-full text-center font-semibold py-3`}
+        >
+          {/* TODO: find a better way to render things! */}
+          {isFetchingNextPage ? 'Loading...' : ''}
+          {!hasNextPage && 'Hooray! We successfully get all characters.'}
+        </div>
+      )}
     </div>
   )
 }
