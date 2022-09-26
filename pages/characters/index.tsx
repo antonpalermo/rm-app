@@ -9,6 +9,7 @@ import { InfoSchema } from '../../lib/schema/info'
 import { CharacterSchema } from '../../lib/schema/character'
 import { fetchCharacters } from '../../lib/fetchCharacters'
 import Layout from '../../components/Layout'
+import Heading from '../../components/Heading'
 
 type Response = {
   info: InfoSchema
@@ -36,7 +37,7 @@ export default function Characters() {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold text-gray-800">Characters</h1>
+      <Heading>Characters</Heading>
       <p className="font-medium text-gray-500">
         All know characters through out the series
       </p>

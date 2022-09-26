@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 
 import Layout from '../components/Layout'
+import Heading from '../components/Heading'
 
 export default function Home() {
   const paths = [
@@ -16,7 +17,7 @@ export default function Home() {
   return (
     <div className="text-center">
       <div className="my-5">
-        <h1 className="text-4xl sm:text-6xl font-black mb-5">Rick and Morty</h1>
+        <Heading>Rick and Morty</Heading>
         <p className="w-full sm:w-8/12 my-16 mx-auto text-lg font-medium text-gray-500 leading-loose">
           Rick and Morty is an American adult animated science-fiction sitcom
           created by Justin Roiland and Dan Harmon for Cartoon Network&apos;s
