@@ -16,7 +16,7 @@ export default function Bio({
         <Link href={`/characters/${id}`} passHref>
           <a className="block font-semibold">{name}</a>
         </Link>
-        <Status status={status} species={species} />
+        <Status size="sm" status={status} species={species} />
       </div>
       <div>
         <span className="text-sm font-semibold text-gray-500">

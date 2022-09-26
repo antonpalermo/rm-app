@@ -10,6 +10,8 @@ import Layout from '../../components/Layout'
 import Status from '../../components/Status'
 import Heading from '../../components/Heading'
 
+import toPascalCase from '../../lib/toPascalCase'
+
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const characterID = params?.id
   const character = await fetcher(
@@ -21,6 +23,20 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 }
 
+type DetailProps = {
+  label: string
+  data: any
+}
+
+function Detail({ label, data }: DetailProps) {
+  return (
+    <div className="mb-5">
+      <span className="block text-gray-500 font-medium">{label}</span>
+      <p className="text-xl font-semibold">{data}</p>
+    </div>
+  )
+}
+
 export type CharacterInfoProps = {
   character: any
 }
@@ -29,7 +45,7 @@ export default function CharacterInfo({ character }: CharacterInfoProps) {
   const router = useRouter()
 
   return (
-    <div className="">
+    <div className="w-full">
       <div className="inline-flex items-end mb-5">
         <div className="relative w-40 h-40 border rounded-md overflow-hidden">
           <Image
@@ -40,10 +56,18 @@ export default function CharacterInfo({ character }: CharacterInfoProps) {
         </div>
         <div className="ml-10">
           <Heading>{character.name}</Heading>
-          <Status status={character.status} species={character.species} />
+          <Status
+            size="normal"
+            status={character.status}
+            species={character.species}
+          />
         </div>
       </div>
-      <p>Bio</p>
+      <h3 className="text-xl font-semibold text-gray-500">Biometric Data</h3>
+      <div className="my-5 grid grid-col-3 gap-5">
+        <Detail label="Gender" data={character.gender} />
+        <Detail label="Current Status" data={toPascalCase(character.status)} />
+      </div>
     </div>
   )
 }

@@ -1,11 +1,14 @@
 import React from 'react'
 
+import toPascalCase from '../lib/toPascalCase'
+
 export type StatusProps = {
+  size: 'sm' | 'normal'
   status: string
   species: string
 }
 
-export default function Status({ status, species }: StatusProps) {
+export default function Status({ size, status, species }: StatusProps) {
   const currentStatus = (status: string) => {
     switch (status) {
       case 'Alive':
@@ -17,14 +20,14 @@ export default function Status({ status, species }: StatusProps) {
     }
   }
 
-  const toPascalCase = (value: string) => {
-    return value[0].toUpperCase() + value.substring(1)
+  const resolveFontSize = (size: 'sm' | 'normal') => {
+    return size === 'normal' ? 'text-lg' : 'text-sm'
   }
 
   return (
     <div className="inline-flex items-center space-x-2">
       <div className={`w-2 h-2 rounded-full ${currentStatus(status)}`} />
-      <p className="text-sm font-semibold text-gray-600">
+      <p className={`${resolveFontSize(size)} font-semibold text-gray-600`}>
         {toPascalCase(status)} - {toPascalCase(species)}
       </p>
     </div>
