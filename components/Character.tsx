@@ -23,16 +23,3 @@ export default function Character({ info }: CharacterProps) {
     </div>
   )
 }
-
-// <div className="bg-gray-50 border-gray-200 rounded-md border overflow-hidden">
-//   <div className="h-full w-full inline-flex">
-//     <div style={{ position: 'relative', width: '300px', height: '200px' }}>
-//       <Image
-//         src={info.image}
-//         alt={`Known photograph of ${info.name}`}
-//         layout="fill"
-//       />
-//     </div>
-//     <Bio bio={info} />
-//   </div>
-// </div>
