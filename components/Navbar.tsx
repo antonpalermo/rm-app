@@ -13,7 +13,7 @@ export default function Navbar({ routes }: NavbarProps) {
   }
 
   return (
-    <nav className="bg-gray-50 py-2 shadow sticky top-0 z-50">
+    <nav className="border-b border-gray-100 bg-gray-50 py-2 sticky top-0 z-50">
       <div className="w-full sm:w-9/12 mx-auto px-5">
         <div className="w-full inline-flex items-center justify-between">
           <Link href={'/'} passHref>

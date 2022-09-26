@@ -26,7 +26,7 @@ export default function Layout({ title, children }: LayoutProps) {
       </Head>
       <Navbar routes={navigations} />
       <div className="w-full sm:w-9/12 mx-auto my-16 px-5">{children}</div>
-      <Footer routes={navigations} />
+      <Footer />
     </>
   )
 }
