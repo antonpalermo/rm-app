@@ -23,15 +23,15 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 }
 
-type DetailProps = {
+type DetailProps = React.HTMLAttributes<HTMLDivElement> & {
   label: string
   data: any
 }
 
-function Detail({ label, data }: DetailProps) {
+function Detail({ label, data, className, ...props }: DetailProps) {
   return (
-    <div className="mb-5">
-      <span className="block text-gray-500 font-medium">{label}</span>
+    <div className={`${className} mb-5 inline-block`} {...props}>
+      <h4 className="text-gray-500 font-medium">{label}</h4>
       <p className="text-xl font-semibold">{data}</p>
     </div>
   )
@@ -44,9 +44,11 @@ export type CharacterInfoProps = {
 export default function CharacterInfo({ character }: CharacterInfoProps) {
   const router = useRouter()
 
+  console.log(character)
+
   return (
     <div className="w-full">
-      <div className="inline-flex items-end mb-5">
+      <div className="inline-flex items-end mb-10">
         <div className="relative w-40 h-40 border rounded-md overflow-hidden">
           <Image
             src={character.image}
@@ -64,16 +66,29 @@ export default function CharacterInfo({ character }: CharacterInfoProps) {
         </div>
       </div>
       <h3 className="text-xl font-semibold text-gray-500">Biometric Data</h3>
-      <div className="my-5 grid grid-col-3 gap-5">
+      <div className="my-5 grid grid-cols-3 gap-5 sm:gap-6">
         <Detail label="Gender" data={character.gender} />
+        <Detail label="Species" data={toPascalCase(character.species)} />
         <Detail label="Current Status" data={toPascalCase(character.status)} />
+        <Detail
+          className={'col-span-3 sm:col-span-1'}
+          label="Origin"
+          data={toPascalCase(character.origin.name)}
+        />
+        <Detail
+          className={'col-span-3 sm:col-span-1'}
+          label="Current Location"
+          data={toPascalCase(character.location.name)}
+        />
       </div>
+      <h3 className="text-xl font-semibold text-gray-500">
+        Other Related Information
+      </h3>
     </div>
   )
 }
 
 CharacterInfo.pageLayout = (page: React.ReactElement) => {
   const { name } = page.props.character
-
   return <Layout title={`${name}`}>{page}</Layout>
 }
