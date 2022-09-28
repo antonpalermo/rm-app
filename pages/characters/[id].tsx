@@ -1,16 +1,17 @@
 import React from 'react'
 import Image from 'next/image'
 
-import { useRouter } from 'next/router'
+import { useQuery } from 'react-query'
 import { GetServerSideProps } from 'next'
-
-import { fetcher } from '../../lib/fetcher'
 
 import Layout from '../../components/Layout'
 import Status from '../../components/Status'
 import Heading from '../../components/Heading'
 
 import toPascalCase from '../../lib/toPascalCase'
+import { fetcher } from '../../lib/fetcher'
+import { CharacterSchema } from '../../lib/schema/character'
+import { EpisodeSchema } from '../../lib/schema/episode'
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const characterID = params?.id
@@ -37,14 +38,34 @@ function Detail({ label, data, className, ...props }: DetailProps) {
   )
 }
 
+type EpisodeProps = {
+  episode: EpisodeSchema
+}
+
+function Episode({ episode }: EpisodeProps) {
+  return (
+    <div>
+      <h2>{episode.name}</h2>
+    </div>
+  )
+}
+
 export type CharacterInfoProps = {
-  character: any
+  character: CharacterSchema
 }
 
 export default function CharacterInfo({ character }: CharacterInfoProps) {
-  const router = useRouter()
+  const resolveEpisode = character.episode
+    .map(ep => ep.match(/[0-9]+$/)?.toString())
+    .toString()
 
-  console.log(character)
+  const { data, isSuccess, isFetching } = useQuery<EpisodeSchema[]>(
+    `/episode/${resolveEpisode}`
+  )
+
+  if (isFetching) {
+    return <h1>loading...</h1>
+  }
 
   return (
     <div className="w-full">
@@ -84,6 +105,7 @@ export default function CharacterInfo({ character }: CharacterInfoProps) {
       <h3 className="text-xl font-semibold text-gray-500">
         Other Related Information
       </h3>
+      {isSuccess && data.map(ep => <Episode key={ep.id} episode={ep} />)}
     </div>
   )
 }

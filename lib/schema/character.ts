@@ -7,10 +7,10 @@ export type CharacterSchema = {
   species: string
   type: string
   gender: string
-  origin: Partial<LocationSchema>
-  location: Partial<LocationSchema>
+  origin: LocationSchema
+  location: LocationSchema
   image: string
-  episodes: string[]
+  episode: string[]
   url: string
   created: Date
 }
