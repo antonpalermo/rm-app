@@ -1,15 +1,14 @@
-import Head from 'next/head'
-import { ReactElement, useRef } from 'react'
+import React, { ReactElement } from 'react'
 import { useInfiniteQuery } from 'react-query'
-
-import Character from '../../components/Character'
-import useIntersectionObserver from '../../lib/useIntersectionObserver'
 
 import { InfoSchema } from '../../lib/schema/info'
 import { CharacterSchema } from '../../lib/schema/character'
 import { fetchCharacters } from '../../lib/fetchCharacters'
+
 import Layout from '../../components/Layout'
+import Button from '../../components/Button'
 import Heading from '../../components/Heading'
+import Character from '../../components/Character'
 
 type Response = {
   info: InfoSchema
@@ -17,29 +16,17 @@ type Response = {
 }
 
 export default function Characters() {
-  const ref = useRef<HTMLDivElement>(null)
   const { data, isSuccess, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery<Response>('characters', fetchCharacters, {
       getNextPageParam: lastPage => lastPage.info.next
     })
 
-  const observerCallback = (
-    entries: IntersectionObserverEntry[],
-    _observer: IntersectionObserver
-  ) => {
-    const entry = entries[0]
-    if (entry.isIntersecting) {
-      fetchNextPage()
-    }
-  }
-
-  useIntersectionObserver<HTMLDivElement>(ref, observerCallback)
-
   return (
-    <div>
+    <>
       <Heading>Characters</Heading>
       <p className="font-medium text-gray-500">
-        All know characters through out the series
+        All know characters through out the series. You can view full details by
+        selecting character.
       </p>
       <div className="mt-10 grid sm:grid-cols-2 grid-cols-1 grid-flow-row gap-5">
         {isSuccess &&
@@ -50,16 +37,19 @@ export default function Characters() {
           )}
       </div>
       {isSuccess && (
-        <div
-          ref={ref}
-          className={`my-10 w-full text-center font-semibold py-3`}
+        <Button
+          className="relative mt-10 inset-1/2 -translate-x-1/2 bg-gray-100"
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
         >
-          {/* TODO: find a better way to render things! */}
-          {isFetchingNextPage ? 'Loading...' : ''}
-          {!hasNextPage && 'Hooray! We successfully get all characters.'}
-        </div>
+          {isFetchingNextPage
+            ? 'Loading...'
+            : hasNextPage
+            ? 'Load more characters'
+            : 'Hooray! we completely get all available characters.'}
+        </Button>
       )}
-    </div>
+    </>
   )
 }
 
