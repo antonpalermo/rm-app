@@ -7,11 +7,15 @@ import { GetServerSideProps } from 'next'
 import Layout from '../../components/Layout'
 import Status from '../../components/Status'
 import Heading from '../../components/Heading'
+import Episode from '../../components/Episode'
 
 import toPascalCase from '../../lib/toPascalCase'
 import { fetcher } from '../../lib/fetcher'
 import { CharacterSchema } from '../../lib/schema/character'
 import { EpisodeSchema } from '../../lib/schema/episode'
+import Episodes from '../../components/Episodes'
+import SubHeading from '../../components/SubHeading'
+import Label from '../../components/Label'
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const characterID = params?.id
@@ -32,20 +36,8 @@ type DetailProps = React.HTMLAttributes<HTMLDivElement> & {
 function Detail({ label, data, className, ...props }: DetailProps) {
   return (
     <div className={`${className} mb-5 inline-block`} {...props}>
-      <h4 className="text-gray-500 font-medium">{label}</h4>
+      <Label>{label}</Label>
       <p className="text-xl font-semibold">{data}</p>
-    </div>
-  )
-}
-
-type EpisodeProps = {
-  episode: EpisodeSchema
-}
-
-function Episode({ episode }: EpisodeProps) {
-  return (
-    <div>
-      <h2>{episode.name}</h2>
     </div>
   )
 }
@@ -60,7 +52,8 @@ export default function CharacterInfo({ character }: CharacterInfoProps) {
     .toString()
 
   const { data, isSuccess, isFetching } = useQuery<EpisodeSchema[]>(
-    `/episode/${resolveEpisode}`
+    `/episode/${resolveEpisode}`,
+    { refetchOnWindowFocus: false }
   )
 
   if (isFetching) {
@@ -86,7 +79,7 @@ export default function CharacterInfo({ character }: CharacterInfoProps) {
           />
         </div>
       </div>
-      <h3 className="text-xl font-semibold text-gray-500">Biometric Data</h3>
+      <SubHeading className="text-lg">General Information</SubHeading>
       <div className="my-5 grid grid-cols-3 gap-5 sm:gap-6">
         <Detail label="Gender" data={character.gender} />
         <Detail label="Species" data={toPascalCase(character.species)} />
@@ -102,10 +95,8 @@ export default function CharacterInfo({ character }: CharacterInfoProps) {
           data={toPascalCase(character.location.name)}
         />
       </div>
-      <h3 className="text-xl font-semibold text-gray-500">
-        Other Related Information
-      </h3>
-      {isSuccess && data.map(ep => <Episode key={ep.id} episode={ep} />)}
+      <SubHeading className="text-lg">Other Detials</SubHeading>
+      {isSuccess && <Episodes episodes={data} />}
     </div>
   )
 }
