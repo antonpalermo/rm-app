@@ -3,7 +3,7 @@ import { useInfiniteQuery } from 'react-query'
 
 import { InfoSchema } from '../../lib/schema/info'
 import { CharacterSchema } from '../../lib/schema/character'
-import { fetchCharacters } from '../../lib/fetchCharacters'
+import getCharacters from '../../lib/getCharacters'
 
 import Layout from '../../components/Layout'
 import Button from '../../components/Button'
@@ -17,7 +17,7 @@ type Response = {
 
 export default function Characters() {
   const { data, isSuccess, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery<Response>('characters', fetchCharacters, {
+    useInfiniteQuery<Response>('characters', getCharacters, {
       getNextPageParam: lastPage => lastPage.info.next
     })
 

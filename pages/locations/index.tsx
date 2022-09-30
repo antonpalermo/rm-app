@@ -7,7 +7,7 @@ import Layout from '../../components/Layout'
 import Location from '../../components/Location'
 import SubHeading from '../../components/SubHeading'
 
-import getLocations from '../../lib/fetchLocations'
+import getLocations from '../../lib/getLocations'
 import { InfoSchema } from '../../lib/schema/info'
 import { LocationSchema } from '../../lib/schema/location'
 

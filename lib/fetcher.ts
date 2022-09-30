@@ -1,3 +1,4 @@
-export async function fetcher(input: RequestInfo | URL, init?: RequestInit) {
-  return await (await fetch(input, init)).json()
-}
+const fetcher = async (input: RequestInfo | URL, init?: RequestInit) =>
+  await (await fetch(input, init)).json()
+
+export default fetcher

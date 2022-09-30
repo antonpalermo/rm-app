@@ -4,24 +4,24 @@ import Image from 'next/image'
 import { useQuery } from 'react-query'
 import { GetServerSideProps } from 'next'
 
+import Label from '../../components/Label'
 import Layout from '../../components/Layout'
 import Status from '../../components/Status'
 import Heading from '../../components/Heading'
-import Episode from '../../components/Episode'
-
-import toPascalCase from '../../lib/toPascalCase'
-import { fetcher } from '../../lib/fetcher'
-import { CharacterSchema } from '../../lib/schema/character'
-import { EpisodeSchema } from '../../lib/schema/episode'
 import Episodes from '../../components/Episodes'
 import SubHeading from '../../components/SubHeading'
-import Label from '../../components/Label'
+
+import fetcher from '../../lib/fetcher'
+import toPascalCase from '../../lib/toPascalCase'
+
+import { CharacterSchema } from '../../lib/schema/character'
+import { EpisodeSchema } from '../../lib/schema/episode'
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const characterID = params?.id
-  const character = await fetcher(
-    `https://rickandmortyapi.com/api/character/${characterID}`
-  )
+  const endpoint = `https://rickandmortyapi.com/api/character/${characterID}`
+  
+  const character = await fetcher(endpoint)
 
   return {
     props: { character }

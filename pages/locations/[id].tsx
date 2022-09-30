@@ -3,11 +3,12 @@ import Image from 'next/image'
 
 import { GetServerSideProps } from 'next'
 
-import Layout from '../../components/Layout'
-
-import { fetcher } from '../../lib/fetcher'
+import fetcher from '../../lib/fetcher'
 import { LocationSchema } from '../../lib/schema/location'
+
+import Layout from '../../components/Layout'
 import Heading from '../../components/Heading'
+
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const locationId = params?.id
