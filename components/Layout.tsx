@@ -9,7 +9,7 @@ export type LayoutProps = {
   children: React.ReactElement
 }
 
-export default function Layout({ title, children }: LayoutProps) {
+export function Layout({ title, children }: LayoutProps) {
   const navigations = [
     {
       label: 'Characters',

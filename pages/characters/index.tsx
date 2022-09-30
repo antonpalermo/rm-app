@@ -1,13 +1,10 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { useInfiniteQuery } from 'react-query'
 
-import { InfoSchema } from '../../lib/schema/info'
-import { CharacterSchema } from '../../lib/schema/character'
-import getCharacters from '../../lib/getCharacters'
+import { getCharacters } from '@lib/query'
+import { InfoSchema, CharacterSchema } from '@lib/schema'
 
-import Layout from '../../components/Layout'
-import Button from '../../components/Button'
-import Heading from '../../components/Heading'
+import { Layout, Button, Heading } from '@components'
 import Character from '../../components/Character'
 
 type Response = {
@@ -53,6 +50,6 @@ export default function Characters() {
   )
 }
 
-Characters.pageLayout = (page: ReactElement) => {
+Characters.pageLayout = (page: React.ReactElement) => {
   return <Layout title="All known characters">{page}</Layout>
 }

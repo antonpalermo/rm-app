@@ -1,14 +1,12 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import Image from 'next/image'
 
 import { GetServerSideProps } from 'next'
 
-import fetcher from '../../lib/fetcher'
-import { LocationSchema } from '../../lib/schema/location'
+import { Layout, Heading } from '@components'
 
-import Layout from '../../components/Layout'
-import Heading from '../../components/Heading'
-
+import { fetcher } from '@lib/helpers'
+import { LocationSchema } from '@lib/schema'
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const locationId = params?.id
@@ -42,7 +40,7 @@ export default function LocationDetails({ locations }: LocationDetailsProps) {
   )
 }
 
-LocationDetails.pageLayout = (page: ReactElement) => {
+LocationDetails.pageLayout = (page: React.ReactElement) => {
   const { name } = page.props.locations
   return <Layout title={name}>{page}</Layout>
 }

@@ -1,9 +1,8 @@
 import React from 'react'
 import { EpisodeSchema } from '../lib/schema/episode'
-import Button from './Button'
 
 import Episode from './Episode'
-import Label from './Label'
+import { Button, Label } from '@components'
 
 export type EpisodesProps = {
   episodes: EpisodeSchema[]

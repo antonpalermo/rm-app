@@ -1,4 +1,4 @@
-export default function seasonResolver(info: string): string {
+export function seasonResolver(info: string): string {
   const split = (start: number, end: number) =>
     info.split('').slice(start, end).join('')
 

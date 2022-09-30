@@ -1,15 +1,12 @@
 import React, { ReactElement } from 'react'
 import { useInfiniteQuery } from 'react-query'
 
-import Button from '../../components/Button'
-import Heading from '../../components/Heading'
-import Layout from '../../components/Layout'
 import Location from '../../components/Location'
-import SubHeading from '../../components/SubHeading'
 
-import getLocations from '../../lib/getLocations'
-import { InfoSchema } from '../../lib/schema/info'
-import { LocationSchema } from '../../lib/schema/location'
+import { Button, Heading, SubHeading, Layout } from '@components'
+
+import { getLocations } from '@lib/query'
+import { InfoSchema, LocationSchema } from '@lib/schema'
 
 type Response = {
   info: InfoSchema

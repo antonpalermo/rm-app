@@ -1,8 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-import Layout from '../components/Layout'
-import Heading from '../components/Heading'
+import { Heading, Layout } from '@components'
 
 export default function Home() {
   const paths = [

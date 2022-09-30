@@ -1,6 +1,7 @@
 import React from 'react'
-import { EpisodeSchema } from '../lib/schema/episode'
-import seasonResolver from '../lib/seasonResolver'
+
+import { EpisodeSchema } from '@lib/schema'
+import { seasonResolver } from '@lib/helpers'
 
 export type EpisodeProps = {
   episode: EpisodeSchema

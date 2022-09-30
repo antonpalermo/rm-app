@@ -1,6 +1,6 @@
 import React from 'react'
 
-import toPascalCase from '../lib/toPascalCase'
+import { toPascalCase } from '@lib/helpers'
 
 export type StatusProps = {
   size: 'sm' | 'normal'

@@ -5,7 +5,7 @@ import { ReactElement, ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 import '../styles/globals.css'
-import fetcher from '../lib/fetcher'
+import { fetcher } from '@lib/helpers'
 
 type PageLayout<P = {}, IP = P> = NextPage<P, IP> & {
   pageLayout?: (page: ReactElement) => ReactNode
