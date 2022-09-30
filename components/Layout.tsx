@@ -1,6 +1,5 @@
 import React from 'react'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 
 import Navbar from './Navbar'
 import Footer from './Footer'
@@ -11,11 +10,14 @@ export type LayoutProps = {
 }
 
 export default function Layout({ title, children }: LayoutProps) {
-  const router = useRouter()
   const navigations = [
     {
       label: 'Characters',
       path: '/characters'
+    },
+    {
+      label: 'Locations',
+      path: '/locations'
     }
   ]
 

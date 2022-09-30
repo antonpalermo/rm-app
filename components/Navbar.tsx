@@ -21,17 +21,19 @@ export default function Navbar({ routes }: NavbarProps) {
               Rick and Morty
             </a>
           </Link>
-          {routes.map((nav, index) => (
-            <Link key={nav.label + index} href={nav.path} passHref>
-              <a
-                className={`${
-                  resolveLinkBackground(nav.path) ? 'bg-gray-100' : ''
-                } block px-4 py-3 font-semibold tracking-wide text-sm text-gray-900 hover:bg-gray-100 rounded-md`}
-              >
-                {nav.label}
-              </a>
-            </Link>
-          ))}
+          <div className='inline-flex items-center space-x-2'>
+            {routes.map((nav, index) => (
+              <Link key={nav.label + index} href={nav.path} passHref>
+                <a
+                  className={`${
+                    resolveLinkBackground(nav.path) ? 'bg-gray-100' : ''
+                  } block px-4 py-3 font-semibold tracking-wide text-sm text-gray-900 hover:bg-gray-100 rounded-md`}
+                >
+                  {nav.label}
+                </a>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </nav>
