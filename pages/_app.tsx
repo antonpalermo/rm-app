@@ -1,10 +1,11 @@
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
+
 import { ReactElement, ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { fetcher } from '../lib/fetcher'
 
 import '../styles/globals.css'
+import fetcher from '../lib/fetcher'
 
 type PageLayout<P = {}, IP = P> = NextPage<P, IP> & {
   pageLayout?: (page: ReactElement) => ReactNode
