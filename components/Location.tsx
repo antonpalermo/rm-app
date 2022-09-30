@@ -1,4 +1,6 @@
 import React from 'react'
+
+import Link from 'next/link'
 import Image from 'next/image'
 
 import { LocationSchema } from '../lib/schema/location'
@@ -8,7 +10,7 @@ export type LocationProps = {
 }
 
 export default function Location({
-  location: { name, dimension, type, residents }
+  location: { id, name, dimension, type, residents }
 }: LocationProps) {
   return (
     <div className="bg-gray-100 w-full rounded-md inline-flex overflow-hidden">
@@ -20,7 +22,9 @@ export default function Location({
         />
       </div>
       <div className="p-5">
-        <h2 className='font-semibold'>{name}</h2>
+        <Link href={`/locations/${id}`} passHref>
+          <a className="block font-semibold">{name}</a>
+        </Link>
       </div>
     </div>
   )
