@@ -9,7 +9,8 @@
       "@components/footer": ["components/footer/index.tsx"],
       "@lib/helpers": ["lib/index.ts"],
       "@lib/query": ["lib/query/index.ts"],
-      "@lib/schema": ["lib/schema/index.ts"]
+      "@lib/schema": ["lib/schema/index.ts"],
+      "@pages/*": ["pages/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,

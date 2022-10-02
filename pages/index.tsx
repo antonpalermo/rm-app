@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div className="text-center">
       <div className="my-5">
-        <Heading>Rick and Morty</Heading>
+        <Heading data-testid="home-title">Rick and Morty</Heading>
         <p className="w-full sm:w-8/12 my-16 mx-auto text-lg font-medium text-gray-500 leading-loose">
           Rick and Morty is an American adult animated science-fiction sitcom
           created by Justin Roiland and Dan Harmon for Cartoon Network&apos;s
