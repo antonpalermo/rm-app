@@ -4,8 +4,16 @@ import { useInfiniteQuery } from 'react-query'
 import { getCharacters } from '@lib/query'
 import { InfoSchema, CharacterSchema } from '@lib/schema'
 
-import { Layout, Button, Heading } from '@components'
-import Character from '../../components/Character'
+import {
+  Layout,
+  Button,
+  Heading,
+  Status,
+  Card,
+  CardCover,
+  CardContent
+} from '@components'
+import Link from 'next/link'
 
 type Response = {
   info: InfoSchema
@@ -28,8 +36,32 @@ export default function Characters() {
       <div className="mt-10 grid sm:grid-cols-2 grid-cols-1 grid-flow-row gap-5">
         {isSuccess &&
           data?.pages.map(pages =>
-            pages.results.map(characterInfo => (
-              <Character key={characterInfo.id} info={characterInfo} />
+            pages.results.map(character => (
+              <Card key={character.id}>
+                <CardCover image={character.image} />
+                <CardContent className="flex flex-col justify-between">
+                  <div>
+                    <Link href={`/characters/${character.id}`}>
+                      <a className="block font-semibold">{character.name}</a>
+                    </Link>
+                    <Status
+                      size="sm"
+                      status={character.status}
+                      species={character.species}
+                    />
+                  </div>
+                  <div>
+                    <span className="text-sm font-semibold text-gray-600">
+                      Current Location
+                    </span>
+                    <Link href={`/locations/${character.location.id}`}>
+                      <a className="block font-semibold line-clamp-1">
+                        {character.location.name}
+                      </a>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
             ))
           )}
       </div>
