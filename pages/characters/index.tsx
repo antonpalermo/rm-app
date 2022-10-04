@@ -11,7 +11,8 @@ import {
   Status,
   Card,
   CardCover,
-  CardContent
+  CardContent,
+  GridContainer
 } from '@components'
 import Link from 'next/link'
 
@@ -33,10 +34,10 @@ export default function Characters() {
         All know characters through out the series. You can view full details by
         selecting character.
       </p>
-      <div className="mt-10 grid sm:grid-cols-2 grid-cols-1 grid-flow-row gap-5">
+      <GridContainer>
         {isSuccess &&
-          data?.pages.map(pages =>
-            pages.results.map(character => (
+          data?.pages.map(({ results }) =>
+            results.map(character => (
               <Card key={character.id}>
                 <CardCover image={character.image} />
                 <CardContent className="flex flex-col justify-between">
@@ -64,7 +65,7 @@ export default function Characters() {
               </Card>
             ))
           )}
-      </div>
+      </GridContainer>
       {isSuccess && (
         <Button
           className="relative mt-10 inset-1/2 -translate-x-1/2 bg-gray-100"

@@ -1,4 +1,5 @@
 export * from './Card'
+export * from './Grid'
 export * from './Label'
 export * from './Links'
 export * from './Button'
