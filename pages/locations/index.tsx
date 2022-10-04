@@ -1,11 +1,20 @@
-import React, { ReactElement } from 'react'
-import { useInfiniteQuery } from 'react-query'
+import React from 'react'
+import Link from 'next/link'
 
-import Location from '../../components/Location'
-
-import { Button, Heading, SubHeading, Layout } from '@components'
+import {
+  Button,
+  Heading,
+  SubHeading,
+  Layout,
+  Card,
+  CardCover,
+  CardContent,
+  ShortDetail
+} from '@components'
 
 import { getLocations } from '@lib/query'
+import { HiArrowRight } from 'react-icons/hi'
+import { useInfiniteQuery } from 'react-query'
 import { InfoSchema, LocationSchema } from '@lib/schema'
 
 type Response = {
@@ -33,8 +42,30 @@ export default function Locations() {
       <div className="mt-10 grid sm:grid-cols-2 grid-cols-1 grid-flow-row gap-5">
         {isSuccess &&
           data.pages.map(({ results }) =>
-            results.map((location, index) => (
-              <Location key={location.id + index} location={location} />
+            results.map(location => (
+              <Card key={location.id}>
+                <CardCover image="/na_placeholder.webp" />
+                <CardContent className="flex flex-col justify-between">
+                  <div>
+                    <Link href={`/characters/${location.id}`}>
+                      <a className="block font-semibold line-clamp-1">
+                        {location.name}
+                      </a>
+                    </Link>
+                    <ShortDetail
+                      size="sm"
+                      status="Alive"
+                      type={location.type}
+                      info={location.dimension}
+                    />
+                  </div>
+                  <Link href={`/locations/${location.id}`}>
+                    <a className="inline-flex items-center text-sm text-blue-500 font-semibold float-right">
+                      View location info <HiArrowRight className="ml-2" />
+                    </a>
+                  </Link>
+                </CardContent>
+              </Card>
             ))
           )}
       </div>
@@ -55,6 +86,6 @@ export default function Locations() {
   )
 }
 
-Locations.pageLayout = (page: ReactElement) => {
+Locations.pageLayout = (page: React.ReactElement) => {
   return <Layout title="All known locations">{page}</Layout>
 }

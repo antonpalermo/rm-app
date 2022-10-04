@@ -1,12 +1,14 @@
 import React from 'react'
+import { toPascalCase } from '@lib/helpers'
 
 export type StatusProps = {
   size: 'sm' | 'normal'
+  type: string
+  info: string
   status: string
-  species: string
 }
 
-export function Status({ size, status, species }: StatusProps) {
+export function ShortDetail({ size, status, type, info }: StatusProps) {
   const currentStatus = (status: string) => {
     switch (status) {
       case 'Alive':
@@ -25,8 +27,12 @@ export function Status({ size, status, species }: StatusProps) {
   return (
     <div className="inline-flex items-center space-x-2">
       <div className={`w-2 h-2 rounded-full ${currentStatus(status)}`} />
-      <p className={`${resolveFontSize(size)} font-semibold text-gray-600`}>
-        {status} - {species}
+      <p
+        className={`${resolveFontSize(
+          size
+        )} font-semibold text-gray-600 line-clamp-1`}
+      >
+        {type} - {toPascalCase(info)}
       </p>
     </div>
   )

@@ -8,11 +8,12 @@ import {
   Layout,
   Button,
   Heading,
-  Status,
+  ShortDetail,
   Card,
   CardCover,
   CardContent,
-  GridContainer
+  GridContainer,
+  SubHeading
 } from '@components'
 import Link from 'next/link'
 
@@ -30,10 +31,10 @@ export default function Characters() {
   return (
     <>
       <Heading>Characters</Heading>
-      <p className="font-medium text-gray-500">
+      <SubHeading>
         All know characters through out the series. You can view full details by
         selecting character.
-      </p>
+      </SubHeading>
       <GridContainer>
         {isSuccess &&
           data?.pages.map(({ results }) =>
@@ -45,10 +46,11 @@ export default function Characters() {
                     <Link href={`/characters/${character.id}`}>
                       <a className="block font-semibold">{character.name}</a>
                     </Link>
-                    <Status
+                    <ShortDetail
                       size="sm"
                       status={character.status}
-                      species={character.species}
+                      type={character.status}
+                      info={character.species}
                     />
                   </div>
                   <div>

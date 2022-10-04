@@ -4,10 +4,9 @@ import Image from 'next/image'
 import { useQuery } from 'react-query'
 import { GetServerSideProps } from 'next'
 
-import Status from '../../components/Status'
 import Episodes from '../../components/Episodes'
 
-import { Label, Layout, Heading, SubHeading } from '@components'
+import { Label, Layout, Heading, SubHeading, ShortDetail } from '@components'
 
 import { fetcher, toPascalCase } from '@lib/helpers'
 import { CharacterSchema, EpisodeSchema } from '@lib/schema'
@@ -67,10 +66,10 @@ export default function CharacterInfo({ character }: CharacterInfoProps) {
         </div>
         <div className="ml-10">
           <Heading>{character.name}</Heading>
-          <Status
+          <ShortDetail
             size="normal"
-            status={character.status}
-            species={character.species}
+            type={character.status}
+            info={character.species}
           />
         </div>
       </div>
