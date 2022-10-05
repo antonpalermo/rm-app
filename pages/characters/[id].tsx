@@ -4,9 +4,14 @@ import Image from 'next/image'
 import { useQuery } from 'react-query'
 import { GetServerSideProps } from 'next'
 
-import Episodes from '../../components/Episodes'
-
-import { Label, Layout, Heading, SubHeading, ShortDetail } from '@components'
+import {
+  Label,
+  Layout,
+  Heading,
+  SubHeading,
+  ShortDetail,
+  Episodes
+} from '@components'
 
 import { fetcher, toPascalCase } from '@lib/helpers'
 import { CharacterSchema, EpisodeSchema } from '@lib/schema'
@@ -68,12 +73,13 @@ export default function CharacterInfo({ character }: CharacterInfoProps) {
           <Heading>{character.name}</Heading>
           <ShortDetail
             size="normal"
+            status={character.status}
             type={character.status}
             info={character.species}
           />
         </div>
       </div>
-      <SubHeading className="text-lg">General Information</SubHeading>
+      <SubHeading className="text-xl">General Information</SubHeading>
       <div className="my-5 grid grid-cols-3 gap-5 sm:gap-6">
         <Detail label="Gender" data={character.gender} />
         <Detail label="Species" data={toPascalCase(character.species)} />
@@ -89,7 +95,7 @@ export default function CharacterInfo({ character }: CharacterInfoProps) {
           data={toPascalCase(character.location.name)}
         />
       </div>
-      <SubHeading className="text-lg">Other Detials</SubHeading>
+      <SubHeading className="text-xl">Other Detials</SubHeading>
       {isSuccess && <Episodes episodes={data} />}
     </div>
   )
