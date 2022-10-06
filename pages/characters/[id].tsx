@@ -62,7 +62,7 @@ export default function CharacterInfo({ character }: CharacterInfoProps) {
   return (
     <div className="w-full">
       <div className="inline-flex items-end mb-10">
-        <div className="relative w-40 h-40 border rounded-md overflow-hidden">
+        <div className="relative min-w-[200px] min-h-[200px] rounded-md overflow-hidden">
           <Image
             src={character.image}
             alt={`Known photograph of ${character.name}`}
