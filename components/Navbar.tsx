@@ -1,41 +1,50 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import React from 'react'
 
-export type NavbarProps = {
-  routes: { label: string; path: string }[]
+import { Link, Button } from '@components'
+import { Bars3Icon } from '@heroicons/react/20/solid'
+
+export type NavbarProps = {}
+
+function MobileNavbar({
+  paths,
+  toggle,
+  onToggle
+}: {
+  toggle: boolean
+  onToggle: () => void
+  paths: { id: string; label: string; path: string }[]
+}) {
+  return (
+    <>
+      {toggle && <h1>toggled</h1>}
+      <Button onClick={onToggle} className="block sm:hidden">
+        <Bars3Icon className="h-5 w-5" />
+      </Button>
+    </>
+  )
 }
 
-export default function Navbar({ routes }: NavbarProps) {
-  const router = useRouter()
-  const resolveLinkBackground = (path: string) => {
-    return router.pathname === path
+export function Navbar({}: NavbarProps) {
+  const [toggle, setToggle] = React.useState<boolean>(false)
+  const paths = [
+    { id: '0x1', label: 'Characters', path: '/characters' },
+    { id: '0x2', label: 'Locations', path: '/locations' }
+  ]
+
+  function toggleNav() {
+    setToggle(prev => !prev)
   }
 
   return (
-    <nav className="border-b border-gray-100 bg-gray-50 py-2 sticky top-0 z-50">
-      <div className="w-full sm:w-9/12 mx-auto px-5">
-        <div className="w-full inline-flex items-center justify-between">
-          <Link href={'/'} passHref>
-            <a className="block font-medium text-gray-900 hover:text-blue-500">
-              Rick and Morty
-            </a>
+    <nav>
+      <div className="hidden sm:inline-flex sm:space-x-2">
+        {paths.map((p, i) => (
+          <Link key={p.id + i} href={p.path}>
+            {p.label}
           </Link>
-          <div className='inline-flex items-center space-x-2'>
-            {routes.map((nav, index) => (
-              <Link key={nav.label + index} href={nav.path} passHref>
-                <a
-                  className={`${
-                    resolveLinkBackground(nav.path) ? 'bg-gray-100' : ''
-                  } block px-4 py-3 font-semibold tracking-wide text-sm text-gray-900 hover:bg-gray-100 rounded-md`}
-                >
-                  {nav.label}
-                </a>
-              </Link>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
+      <MobileNavbar toggle={toggle} onToggle={toggleNav} paths={paths} />
     </nav>
   )
 }

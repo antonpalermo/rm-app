@@ -5,7 +5,7 @@
     "baseUrl": ".",
     "paths": {
       "@components": ["components/index.ts"],
-      "@components/nav": ["components/navbar/index.tsx"],
+      "@components/nav": ["components/index.tsx"],
       "@components/footer": ["components/footer/index.tsx"],
       "@lib/helpers": ["lib/index.ts"],
       "@lib/query": ["lib/query/index.ts"],
