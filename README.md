@@ -1,3 +1,14 @@
+This app is using the [Rick and Morty API](https://rickandmortyapi.com) to get all related contests.
+
+Libraries used
+- Next.js
+- Tailwind CSS
+- React Query
+
+I decided to create this app to learn mo about the libraries I mentioned above. 
+
+Demo: https://rick-and-morty-app-psi.vercel.app
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
