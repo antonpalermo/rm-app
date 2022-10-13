@@ -16,8 +16,8 @@ export function Layout({ title, children }: LayoutProps) {
       <Head>
         <title>{title}</title>
       </Head>
-      <header className="bg-white shadow">
-        <div className="container mx-auto px-5">
+      <header className="sticky top-0 bg-white shadow z-50">
+        <div className="container">
           <div className="relative w-full py-3 inline-flex justify-between items-center">
             <Link href={'/'} passHref>
               <a className="font-semibold text-gray-900 hover:text-blue-500">
@@ -28,7 +28,7 @@ export function Layout({ title, children }: LayoutProps) {
           </div>
         </div>
       </header>
-      <div className="container mx-auto my-16 px-5">{children}</div>
+      <div className="container my-16">{children}</div>
       <Footer />
     </>
   )
