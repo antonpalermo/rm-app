@@ -17,7 +17,7 @@ export default function SocialMedia() {
 
   return (
     <div>
-      <h3 className="text-sm font-semibold text-gray-500 mb-2">Social</h3>
+      <h3 className="text-gray-500 text-sm font-semibold my-3">Stay Connected!</h3>
       <div className="inline-flex space-x-2">
         {socialLinks.map((social, index) => (
           <Link key={social.link + index} href={social.link} passHref>

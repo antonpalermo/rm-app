@@ -33,9 +33,9 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="w-full border-t border-gray-100 bg-gray-50">
-      <div className="w-full sm:w-9/12 mx-auto px-5">
-        <div className="w-full inline-flex items-start justify-between py-10">
+    <footer className="bg-white shadow">
+      <div className="container">
+        <div className="w-full flex flex-col sm:flex-row items-start justify-between py-10">
           {routes.map((route, index) => (
             <div key={route.label + index} className=" inline-flex">
               <div>
@@ -50,7 +50,7 @@ export default function Footer() {
               </div>
             </div>
           ))}
-          <div className="my-3">
+          <div className="my-3 w-full sm:w-auto">
             <SocialMedia />
             <EmailForm />
           </div>

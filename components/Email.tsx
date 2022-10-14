@@ -7,11 +7,11 @@ export default function EmailForm() {
 
   return (
     <form onSubmit={e => submit(e)}>
-      <div className="bg-white border border-gray-100 rounded-md p-1">
+      <div className="w-full bg-white border inline-flex border-gray-100 rounded-md p-1">
         <input
           type="text"
           placeholder="Subcribe to my news letter"
-          className="border-0 text-sm px-4 py-2"
+          className="w-full border-0 text-sm px-4 py-2 focus:ring-0"
         />
         <button
           type="submit"
