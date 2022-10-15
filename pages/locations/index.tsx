@@ -47,7 +47,7 @@ export default function Locations() {
                 <CardCover image="/na_placeholder.webp" />
                 <CardContent className="flex flex-col justify-between">
                   <div>
-                    <Link href={`/characters/${location.id}`}>
+                    <Link href={`/locations/${location.id}`}>
                       <a className="block font-semibold line-clamp-1">
                         {location.name}
                       </a>

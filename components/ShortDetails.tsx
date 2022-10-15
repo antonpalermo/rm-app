@@ -30,7 +30,7 @@ export function ShortDetail({ size, status, type, info }: StatusProps) {
       <p
         className={`${resolveFontSize(
           size
-        )} font-semibold text-gray-600 line-clamp-1`}
+        )} font-semibold text-gray-400 line-clamp-1`}
       >
         {type} - {toPascalCase(info)}
       </p>

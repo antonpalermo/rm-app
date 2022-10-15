@@ -1,16 +1,16 @@
 import React from 'react'
-import Image from 'next/image'
 
 import { useQuery } from 'react-query'
 import { GetServerSideProps } from 'next'
 
 import {
-  Label,
   Layout,
   Heading,
   SubHeading,
   ShortDetail,
-  Episodes
+  Episodes,
+  Avatar,
+  Detail
 } from '@components'
 
 import { fetcher, toPascalCase } from '@lib/helpers'
@@ -25,20 +25,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   return {
     props: { character }
   }
-}
-
-type DetailProps = React.HTMLAttributes<HTMLDivElement> & {
-  label: string
-  data: any
-}
-
-function Detail({ label, data, className, ...props }: DetailProps) {
-  return (
-    <div className={`${className} mb-5 inline-block`} {...props}>
-      <Label>{label}</Label>
-      <p className="text-xl font-semibold">{data}</p>
-    </div>
-  )
 }
 
 export type CharacterInfoProps = {
@@ -62,14 +48,8 @@ export default function CharacterInfo({ character }: CharacterInfoProps) {
   return (
     <div className="w-full">
       <div className="inline-flex items-end mb-10">
-        <div className="relative min-w-[200px] min-h-[200px] rounded-md overflow-hidden">
-          <Image
-            src={character.image}
-            alt={`Known photograph of ${character.name}`}
-            layout="fill"
-          />
-        </div>
-        <div className="ml-10">
+        <Avatar src={character.image} alt={character.name} />
+        <div className="ml-5 sm:ml-10">
           <Heading>{character.name}</Heading>
           <ShortDetail
             size="normal"

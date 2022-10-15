@@ -8,14 +8,10 @@ import {
   Layout,
   Button,
   Heading,
-  ShortDetail,
-  Card,
-  CardCover,
-  CardContent,
   GridContainer,
-  SubHeading
+  SubHeading,
+  Character
 } from '@components'
-import Link from 'next/link'
 
 type Response = {
   info: InfoSchema
@@ -39,32 +35,7 @@ export default function Characters() {
         {isSuccess &&
           data?.pages.map(({ results }) =>
             results.map(character => (
-              <Card key={character.id}>
-                <CardCover image={character.image} />
-                <CardContent className="flex flex-col justify-between">
-                  <div>
-                    <Link href={`/characters/${character.id}`}>
-                      <a className="block font-semibold">{character.name}</a>
-                    </Link>
-                    <ShortDetail
-                      size="sm"
-                      status={character.status}
-                      type={character.status}
-                      info={character.species}
-                    />
-                  </div>
-                  <div>
-                    <span className="text-sm font-semibold text-gray-600">
-                      Current Location
-                    </span>
-                    <Link href={`/locations/${character.location.id}`}>
-                      <a className="block font-semibold line-clamp-1">
-                        {character.location.name}
-                      </a>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
+              <Character key={character.id} character={character} />
             ))
           )}
       </GridContainer>
