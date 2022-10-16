@@ -4,11 +4,12 @@ import Image from 'next/image'
 export type AvatarProps = {
   src: string
   alt: string
+  priority?: boolean
 }
 
-export function Avatar({ src, alt }: AvatarProps) {
+export function Avatar({ src, alt, priority }: AvatarProps) {
   return (
-    <div className='p-1 bg-white rounded-md shadow'>
+    <div className="p-1 bg-white rounded-md shadow">
       <div className="relative min-w-[175px] sm:min-w-[200px] min-h-[175px] sm:min-h-[200px] rounded-md overflow-hidden">
         <Image
           className="p-2 bg-white"
@@ -16,6 +17,7 @@ export function Avatar({ src, alt }: AvatarProps) {
           alt={`Known photograph of ${alt}`}
           layout="fill"
           objectFit="cover"
+          priority={priority}
         />
       </div>
     </div>

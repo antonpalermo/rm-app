@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { GetServerSideProps } from 'next'
 
@@ -33,24 +33,49 @@ export type LocationDetailsProps = {
 }
 
 export default function LocationDetails({ location }: LocationDetailsProps) {
-  const resolveResidents = location.residents
-    .map(people => people.match(/[0-9]+$/)?.toString())
-    .toString()
+  const [sIndex, setSIndex] = useState<number>(0)
+  const [eIndex, setEIndex] = useState<number>(4)
+  const [complete, setComplete] = useState<boolean>(false)
+  const [residents, setResidents] = useState<CharacterSchema[]>([])
 
-  const { data, isSuccess, isFetching } = useQuery<CharacterSchema[]>(
-    `/character/${resolveResidents}`,
-    { refetchOnWindowFocus: false }
+  const noKnownResidents = residents.length === 0
+  const knownResidents = location.residents.map(people =>
+    people.match(/[0-9]+$/)?.toString()
   )
-  const [listIndex, setListIndex] = useState<number>(4)
-  const characterCount = data?.length
-  const paginatedList = data?.slice(0, listIndex)
 
-  const isComplete = paginatedList?.length === characterCount
+  const { data } = useQuery<CharacterSchema[] | CharacterSchema>(
+    `/character/${knownResidents.toString()}`,
+    { enabled: knownResidents.length !== 0, refetchOnWindowFocus: false }
+  )
+
+  useEffect(() => {
+    if (data) {
+      if (Array.isArray(data)) {
+        const slicedResidents = data.slice(sIndex, eIndex)
+        return setResidents(prev => [...prev, ...slicedResidents])
+      }
+      return setResidents(prev => [...prev, data as CharacterSchema])
+    }
+  }, [data, sIndex, eIndex])
+
+  const paginate = () => {
+    const increment = 4
+    if (residents.length === knownResidents.length) {
+      setComplete(true)
+      return
+    }
+    setSIndex(prev => prev + increment)
+    setEIndex(prev => prev + increment)
+  }
 
   return (
     <div className="w-full">
       <div className="inline-flex items-end mb-10">
-        <Avatar src={'/na_placeholder.webp'} alt={location.name} />
+        <Avatar
+          src={'/na_placeholder.webp'}
+          alt={location.name}
+          priority={true}
+        />
         <div className="ml-5 sm:ml-10">
           <Heading>{location.name}</Heading>
           <p className="font-semibold text-gray-400 text-sm sm:text-lg">
@@ -65,19 +90,26 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
         <Detail label="Dimension" data={toPascalCase(location.dimension)} />
       </div>
       <SubHeading className="text-xl">Known Residents</SubHeading>
-      <GridContainer>
-        {paginatedList?.map(character => (
-          <Character key={character.id} character={character} />
-        ))}
-      </GridContainer>
+      {noKnownResidents ? (
+        <p className="relative mt-10 w-full text-center font-medium text-gray-400">
+          No known residents
+        </p>
+      ) : (
+        <GridContainer>
+          {residents &&
+            residents.map(r => <Character key={r.id} character={r} />)}
+        </GridContainer>
+      )}
       <Button
-        className={`relative mt-10 inset-1/2 -translate-x-1/2 ${
-          isComplete ? 'hover:bg-white' : 'bg-gray-100 '
+        className={`${
+          noKnownResidents ? 'hidden' : ''
+        } relative mt-10 inset-1/2 -translate-x-1/2 ${
+          complete ? 'hover:bg-white' : 'bg-gray-100 '
         }`}
-        onClick={() => setListIndex(prev => prev + 4)}
-        disabled={isComplete}
+        onClick={paginate}
+        disabled={complete}
       >
-        {isComplete
+        {complete
           ? 'Hooray! we completely load all related episodes'
           : 'Load more'}
       </Button>
