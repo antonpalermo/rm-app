@@ -13,7 +13,7 @@ import {
   GridContainer
 } from '@components'
 
-import { fetcher } from '@lib/helpers'
+import { fetcher, toPascalCase } from '@lib/helpers'
 import { CharacterSchema, LocationSchema } from '@lib/schema'
 import { useQuery } from 'react-query'
 
@@ -62,7 +62,7 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
       <div className="my-5 grid grid-cols-3 gap-5 sm:gap-6">
         <Detail label="Location ID" data={location.id} />
         <Detail label="Type" data={location.type} />
-        <Detail label="dimension" data={location.dimension} />
+        <Detail label="Dimension" data={toPascalCase(location.dimension)} />
       </div>
       <SubHeading className="text-xl">Known Residents</SubHeading>
       <GridContainer>
