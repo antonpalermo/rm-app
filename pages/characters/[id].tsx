@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useQuery } from 'react-query'
 import { GetServerSideProps } from 'next'
@@ -8,9 +8,11 @@ import {
   Heading,
   SubHeading,
   ShortDetail,
-  Episodes,
+  Episode,
   Avatar,
-  Detail
+  Detail,
+  GridContainer,
+  Button
 } from '@components'
 
 import { fetcher, toPascalCase } from '@lib/helpers'
@@ -32,17 +34,39 @@ export type CharacterInfoProps = {
 }
 
 export default function CharacterInfo({ character }: CharacterInfoProps) {
-  const resolveEpisode = character.episode
-    .map(ep => ep.match(/[0-9]+$/)?.toString())
-    .toString()
+  const [sIndex, setSIndex] = useState<number>(0)
+  const [eIndex, setEIndex] = useState<number>(4)
+  const [complete, setComplete] = useState<boolean>(false)
+  const [episodes, setEpisodes] = useState<EpisodeSchema[]>([])
 
-  const { data, isSuccess, isFetching } = useQuery<EpisodeSchema[]>(
-    `/episode/${resolveEpisode}`,
+  const noAppearances = episodes.length === 0
+  const appearances = character.episode.map(ep =>
+    ep.match(/[0-9]+$/)?.toString()
+  )
+
+  const { data } = useQuery<EpisodeSchema[]>(
+    `/episode/${appearances.toString()}`,
     { refetchOnWindowFocus: false }
   )
 
-  if (isFetching) {
-    return <h1>loading...</h1>
+  useEffect(() => {
+    if (data) {
+      if (Array.isArray(data)) {
+        const slicedEpisodes = data.slice(sIndex, eIndex)
+        return setEpisodes(prev => [...prev, ...slicedEpisodes])
+      }
+      return setEpisodes(prev => [...prev, data as EpisodeSchema])
+    }
+  }, [data, sIndex, eIndex])
+
+  const paginate = () => {
+    const increment = 4
+    if (episodes.length === appearances.length) {
+      setComplete(true)
+      return
+    }
+    setSIndex(prev => prev + increment)
+    setEIndex(prev => prev + increment)
   }
 
   return (
@@ -75,8 +99,29 @@ export default function CharacterInfo({ character }: CharacterInfoProps) {
           data={toPascalCase(character.location.name)}
         />
       </div>
-      <SubHeading className="text-xl">Other Detials</SubHeading>
-      {isSuccess && <Episodes episodes={data} />}
+      <SubHeading className="text-xl">Episode Appearances</SubHeading>
+      {noAppearances ? (
+        <p className="relative mt-10 w-full text-center font-medium text-gray-400">
+          No appearances recorded
+        </p>
+      ) : (
+        <GridContainer>
+          {episodes && episodes.map(e => <Episode key={e.id} episode={e} />)}
+        </GridContainer>
+      )}
+      <Button
+        className={`${
+          noAppearances ? 'hidden' : ''
+        } relative mt-10 inset-1/2 -translate-x-1/2 ${
+          complete ? 'hover:bg-white' : 'bg-gray-100 '
+        }`}
+        onClick={paginate}
+        disabled={complete}
+      >
+        {complete
+          ? 'Hooray! we completely load all related episodes'
+          : 'Load more'}
+      </Button>
     </div>
   )
 }
