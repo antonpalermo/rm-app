@@ -7,7 +7,7 @@ export default function EmailForm() {
 
   return (
     <form onSubmit={e => submit(e)}>
-      <div className="w-full bg-white border inline-flex border-gray-100 rounded-md p-1">
+      <div className="w-full bg-gray-100 border inline-flex border-gray-100 rounded-md p-1">
         <input
           type="text"
           placeholder="Subcribe to my news letter"
